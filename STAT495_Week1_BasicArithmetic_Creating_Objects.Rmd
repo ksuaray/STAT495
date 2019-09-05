@@ -1,0 +1,210 @@
+---
+title: "STAT495 Week1 Basic Arithmetic and Creating Objects"
+output:
+  html_notebook: default
+  pdf_document: default
+---
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. It is a hybrid document that consists of text and code. The text does not need to be commented out, and when you execute code within the notebook, the results appear beneath the code. [Here](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf) is a good typsetting reference.
+
+We can insert code by clicking on the green *Insert* button above, or by pressing *Cmd+Option+I*. Chunks can be executed by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. You can also see that a running log of all code run is maintained in the *Console*
+
+In mathematics and statistics, we use objects of various dimensions, shapes, and sizes to help us explain and model the real world in quantifiable ways. As a computing language built specifically for statistics, R has some intuitive ways of building and manipulating these objects. However we will see that the *algebra* of these objects in R has some similarities and differences with their mathematical counterparts.
+
+```{r}
+4+3
+```
+
+Basic arithmetic is easily performed in R, but results may not be as expected. To understand the logic behind the algebra of R, we need to have a basic understanding of the **"types"** of data or "atomic classes" that can be created in R. These are
+
+**Numeric** (Real or decimal), also called "Double". Includes infinity and undefined
+
+**Integer**
+
+**Logical** (TRUE/FALSE or missing data)
+
+**Complex** (Complex number)
+
+**Raw** 
+
+**Character** (Data treated as text)
+
+Some types will be used more than others, and we'll deal with them in context as the need arises. Some references refer to these as "classes" of data, but technically they are more appropriately labeled "types." 
+
+In the *Console*, calculate the following, and once you figure out how to perform them with R syntax, imbed the code in this document after each problem.
+
+##Scalar Arithmetic
+
+1) 32-6⨉4=
+
+2) 54➗ 7=
+
+3) Find the hypotenuse of a right tringle with base 8 and height 13
+
+
+##Assignment of Variables
+If we would like to create a variable in R called lambda, and set it equal to the value eight, we type
+```{r}
+lambda<-8
+```
+or
+```{r}
+8->lambda
+```
+
+we can also type
+```{r}
+lambda=8
+```
+but the first method is preferred, except within a function call (to be discussed later). Until reassigned, λ will be this value. Unlike the operations above, there is no "output" when we run this code. However, you can see to the right in the *Global Environment* that R has this variable stored in the memory.
+
+Let's perform a calculation with λ:
+```{r}
+5*lambda-3
+```
+
+In R, the logical type results from typing an expression that involves a logical operator, such as
+```{r}
+lambda<5
+```
+
+To represent a character varible, we use quotes. For example, I'll create the variable *Name* and assign to it the string corresponding to my last name:
+```{r}
+Name<-"Suaray"
+Name
+```
+Remember that we need to call the newly created character variable in order to see its value.
+
+We discussed types earlier, now to **"classes"**. In R, data of various types are stored in objects of a number of classes. These include
+
+**Atomic Vector**
+
+**Matrix**
+
+**Data Frame**
+
+**List**
+
+**Factor**
+
+The first two are familiar from mathematics, let's see how they are treated in R.
+
+##Vectors
+Usually when you see parentheses() in R, it is indicating that a function is being used, with arguments inside the parentheses. R uses the command c() to create column vectors. So if I would like to create a 6⨉1 column vector with elements 1 through 6 as a vector *vec*, we type
+```{r}
+vec<-c(1,2,3,4,5,6)
+```
+or
+```{r}
+vec<-c(1:6)
+```
+Notice that this looks like a row vector. However, the [1] is indicating that it is actually a the first column of a 6x1 matrix. R uses square brackets [] for indexing. Let’s transpose it using the t() function to see what the notation for a row vector looks like:
+```{r}
+t(vec)
+```
+**Question:** How is R using the bracketed numbers to indicate position?
+
+4) **Answer:**
+
+Let's work with the values we have created. 
+
+A) Constant times vector
+```{r}
+lambda*vec 
+```
+
+B) Constant plus vector
+```{r}
+lambda+vec
+```
+
+C) Constant raised to vector
+```{r}
+lambda^vec
+```
+
+D) Vector raised to constant
+```{r}
+vec^lambda
+```
+E) Vector times vector
+```{r}
+vec*vec
+```
+F) Vector raised to vector
+```{r}
+vec^vec
+```
+
+
+5) **Describe how R performs these operations with scalars and vectors. Use the *Console* to try some of your own, including with subtraction and division, and verify.**
+
+##Matrices
+Matrices can be created from vectors using the matrix() command. For example, we can create the matrices 
+$$\mathbf{A} = \left[\begin{array}
+{rrr}
+1 & 3 & 4 \\
+2 & 4 & 6 \\
+\end{array}\right]
+$$
+
+and 
+$$\mathbf{B} = \left[\begin{array}
+{rrr}
+1 & 2  \\
+3 & 4  \\
+5 & 6 
+\end{array}\right]
+$$
+as follows
+
+```{r}
+A<-matrix(vec,ncol=3)
+A
+#and
+B<-matrix(vec,ncol=2,byrow=T)
+B
+```
+####Understanding algebra with matrices in R####
+Interesting things happen when you multiply various objects in R.
+
+6) A. **"Multiply" the matrices *A* and *B* using the usual multiplication operator. Debug the error. Does order matter?**
+
+B) **Now find the symbol for matrix multiplication, and multiply *A* and *B* both ways.**
+
+C) **Multiply *A* by *λ*. Does order matter? What is R doing?** 
+
+D) **Multiply *A* by *vec*. Does order matter? What is R doing?** 
+
+E) **Multiply *B* by *vec*. Does order matter? What is R doing?**
+
+F) **Create a vector called *vec1* that consists of the numbers one thru seven consecutively. Try parts D. and E. above with it in place of *vec*. Do you get an error? Why?**
+
+G) **Create a vector called *vec2* whose first element is *1*, and consists of consecutive numbers, such that multiplication *IS* possible. Repeat parts C. and D. above with *vec2* in place of *vec*. Do you get an error?**
+
+##HOMEWORK##
+You will submit your homework in two components: one handwritten, the other as an .Rmd file upload to the Dropbox in  Beachboard.
+
+1) The strength of the R framework is that it incorporates a host of user generated *packages*, which consist of a cohesive set of functions, datasets, etc that aide in performing a given programming or statistical task.  We will discuss functions and packages in R in a couple of weeks, but in the meantime, let's load a package that will help automate your R learning process and supplement our in-class sessions:
+```{r}
+install.packages(swirl)
+library(swirl)
+```
+Now let's run the tutorial:
+```{r}
+swirl()
+```
+Follow the prompts, and select the R Programming: The basics of programming in R course. Select option 1, R Programming, and then option 1 again, Basic Building Blocks. Complete the session. State the value of the *my_div* vector you created.
+
+2) Consider the matrices and vectors discussed in Example 1 and 2 IN CLASS (*A*, *B*, *C*, and **d**). Where possible, compute the following by hand using conventional vector algebra, then using R vector algebra, otherwise state why the result is not defined. Then verify both sets of answers using R. a) $AB^T$  b) $A^T*d$   c) $d^T*d$
+
+
+3) *Actively* read chapter 1 in the [R Cookbook](https://rc2e.com/) text.
+
+4) *Actively* read chapter 2.1-10 in the [R Cookbook](https://rc2e.com/) text. State two non-statistical functions mentioned in the text and what they accomplish.
+
+5) Show that the Bernoulli probability mass function (pmf) satisfies the properties of a pmf.
+
+6) Show that the expected value of a $Y\sim N(\mu,\sigma^2)$ is $E(Y)=\mu$.
+
+
+
